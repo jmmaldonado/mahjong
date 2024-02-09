@@ -1,6 +1,7 @@
 
 const gameBoard = document.getElementById('game-board');
 const header = document.getElementById('header');
+let movements = 0
 
 
 //  3D Array for Tiles
@@ -23,7 +24,6 @@ const tileTypes = [
 let selectedTile = null;
 let selectedTileType = null;
 let selectedTilePosition = {};
-let movements = 0;
 let strictMode = true; //Tiles are only exposed if they can be moved left or right, otherwise they can be moved N/S too
 
 function generateTiles() {
@@ -191,31 +191,27 @@ function paintTiles() {
     gameBoard.innerHTML = '';
 
     // Iterate over base layer 
-    for (let currentLayer = 0; currentLayer < mapTiles.length; currentLayer++) {
+    for (let currentLayer = 0; currentLayer < currentBoard.length; currentLayer++) {
         for (let currentRow = 0; currentRow < currentBoard[currentLayer].length; currentRow++) {
-            const availableColumns = currentBoard[currentLayer][currentRow];
-            const startingColumn = Math.floor((12 - availableColumns) / 2);
 
             for (let tileIndexInRow = 0; tileIndexInRow < maxCols; tileIndexInRow++) {
                 const currentTile = mapTiles[currentLayer][currentRow][tileIndexInRow];
 
-
-
                 // Create tile div)
                 let tileDiv = document.createElement('div');
                 tileDiv.classList.add('tile');
+                // Dynamic grid placement 
+                tileDiv.style.gridRow = currentRow + 1;
+                tileDiv.style.gridColumn = tileIndexInRow + 1;
 
                 if (!currentTile) {
                     tileDiv.classList.add('tile-empty');
+                    tileDiv.style.zIndex = -1; //Make sure it does not interfere with tiles above
                 } else {
 
                     // Assuming 'type' property stores your tile type information
                     tileDiv.style.color = currentTile.color;
-
-                    // Dynamic grid placement 
-                    tileDiv.style.gridRow = currentRow + 1;
-                    tileDiv.style.gridColumn = tileIndexInRow + 1;
-                    tileDiv.style.zIndex = currentLayer;
+                    tileDiv.style.zIndex = currentLayer;                    
                     tileDiv.id = `${currentLayer}-${currentRow}-${tileIndexInRow}`;
                     tileDiv.style.left = (currentLayer * 5) + 'px';
                     tileDiv.style.top = (currentLayer * -5) + 'px';
