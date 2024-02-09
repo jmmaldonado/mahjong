@@ -89,6 +89,7 @@ function generateTiles() {
 
 function showHint() {
     if (hintsAvailable > 0) {
+        document.getElementById('button-hint').style = "filter: saturate(1);"
         const matchingTilePos = findMatchingTile()
         if (matchingTilePos) {
             const tileId = matchingTilePos.layer + "-" + matchingTilePos.row + "-" + matchingTilePos.col;
@@ -99,7 +100,12 @@ function showHint() {
             }, 3000)
             hintsAvailable--;
             remainingHints.innerText = hintsAvailable + " hints"
+
+            if (hintsAvailable == 0)
+                document.getElementById('button-hint').style = "filter: saturate(0);"
         }
+    } else {
+        document.getElementById('button-hint').style = "filter: saturate(0);"
     }
 }
 
