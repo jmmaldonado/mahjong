@@ -300,7 +300,7 @@ function viewportResize() {
 
     const footerHeight = 80
     footer.style.width = currentWidth + 'px';
-    footer.style.top = (window.visualViewport.height - footerHeight) + "px"
+    footer.style.top = (window.visualViewport.height - footerHeight - 5 ) + "px"
     footer.style.height = footerHeight + "px"
 }
 
@@ -308,6 +308,5 @@ function viewportResize() {
 function addEventListeners() {
     document.getElementById('button-newgame').addEventListener('click', newGame);
     window.addEventListener('resize', viewportResize);
-    document.getElementById('button-hint').addEventListener('click', () => { alert("hola dani!")});
-
+    document.getElementById('difficulty-level').addEventListener('change', newGame)
 }
