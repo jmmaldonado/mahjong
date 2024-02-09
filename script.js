@@ -1,6 +1,9 @@
 
 const gameBoard = document.getElementById('game-board');
 const header = document.getElementById('header');
+const footer = document.getElementById('footer');
+const remainingTiles = document.getElementById('remaining-tiles')
+
 let movements = 0
 
 
@@ -8,26 +11,39 @@ let movements = 0
 const mapTiles = [];
 const maxCols = 12;
 
-let currentBoard = getRandomBoard()
-
-const tileTypes = [
-    { type: "Circles", value: 2, color: "#FFBC42" },
-    { type: "Circles", value: 4, color: "#D81159" },
-    { type: "Circles", value: 6, color: "#218380" },
-    { type: "Circles", value: 1, color: "#73D2DE" },
-    { type: "Squares", value: 1, color: "#FFBC42" },
-    { type: "Squares", value: 6, color: "#D81159" },
-    { type: "Squares", value: 4, color: "#218380" },
-    { type: "Squares", value: 2, color: "#73D2DE" },
-];
-
+let currentBoard
 let selectedTile = null;
 let selectedTileType = null;
 let selectedTilePosition = {};
 let strictMode = true; //Tiles are only exposed if they can be moved left or right, otherwise they can be moved N/S too
+let tileCounter
+
+
+function totalBoardTiles() {
+    let total = 0
+    for (let layer = 0; layer < currentBoard.length; layer++) {
+        const currentRow = currentBoard[layer]
+        for (let column = 0; column < currentRow.length; column++) {
+            total += currentRow[column]
+        }
+    }
+    return total
+}
+
 
 function generateTiles() {
-    // Iterate over base layer 
+    tileCounter = 0
+    let tilesToDistribute = []
+    const numberOfTilesToCreate = totalBoardTiles()
+    for (let i = 0; i < numberOfTilesToCreate; i += 2) {
+        //For each tile to create, we create a pair to ensure the puzzle can be solved
+        let randomTileType = tileTypes[Math.floor(Math.random() * tileTypes.length)];
+        tilesToDistribute.push(randomTileType)
+        tilesToDistribute.push(randomTileType)
+    }
+
+
+
     for (let layer = 0; layer < currentBoard.length; layer++) {
         let rowArray = mapTiles[layer] ? mapTiles[layer] : [];
         for (let row = 0; row < currentBoard[layer].length; row++) {
@@ -48,10 +64,14 @@ function generateTiles() {
                     if (col < currentRowStartColumn) {
                         columnArray[col] = null;
                     } else {
-                        let randomTileType = tileTypes[Math.floor(Math.random() * tileTypes.length)];
-                        columnArray[col] = randomTileType;
+                        //Get one tile from the tilesToDistribute, place it on the columnArray and remove it from the tilesToDistribute
+                        const tilePositionInArray = Math.floor(Math.random() * tilesToDistribute.length)
+                        columnArray[col] = tilesToDistribute[tilePositionInArray];
+                        tilesToDistribute.splice(tilePositionInArray, 1)
+
                         currentRowTiles++;
                         finishedRowTiles = currentRowTiles >= currentBoard[layer][row];
+                        tileCounter++;
                     }
                 } else {
                     columnArray[col] = null;
@@ -74,7 +94,6 @@ function handleTileClick(tile, layerIndex, rowIndex, colIndex) {
             col: colIndex
         };
         tile.classList.add('selected')
-        console.log('Selected tile', tile)
         return;
     }
 
@@ -89,7 +108,6 @@ function handleTileClick(tile, layerIndex, rowIndex, colIndex) {
         removeTiles(selectedTilePosition, secondTilePosition);
         paintTiles();
     } else {
-        console.log('Selected tile: ', selectedTile)
         selectedTile.classList.remove('selected')
         selectedTile = null
         selectedTilePosition = {}
@@ -122,10 +140,9 @@ function isSameTile(tile1pos, tile2pos) {
         }
     }
     return false
-
 }
 
-function isTileExposed(tilePos, strictMode) {
+function isTileExposed(tilePos, strictMode = true) {
 
     let tileLeft
     if (tilePos.col > 0)
@@ -163,6 +180,9 @@ function removeTiles(tile1pos, tile2pos) {
     mapTiles[tile2pos.layer][tile2pos.row][tile2pos.col] = null
     selectedTile = null
     selectedTilePosition = {}
+    tileCounter = tileCounter - 2;
+    if (tileCounter == 0)
+        fireConfetti()
 }
 
 
@@ -186,9 +206,9 @@ function createTileShapeContainer(tile) {
     return shapeContainer;
 }
 
-
 function paintTiles() {
     gameBoard.innerHTML = '';
+    remainingTiles.innerText = tileCounter
 
     // Iterate over base layer 
     for (let currentLayer = 0; currentLayer < currentBoard.length; currentLayer++) {
@@ -211,7 +231,7 @@ function paintTiles() {
 
                     // Assuming 'type' property stores your tile type information
                     tileDiv.style.color = currentTile.color;
-                    tileDiv.style.zIndex = currentLayer;                    
+                    tileDiv.style.zIndex = currentLayer;
                     tileDiv.id = `${currentLayer}-${currentRow}-${tileIndexInRow}`;
                     tileDiv.style.left = (currentLayer * 5) + 'px';
                     tileDiv.style.top = (currentLayer * -5) + 'px';
@@ -230,16 +250,62 @@ function paintTiles() {
     }
 }
 
-generateTiles();
-paintTiles()
-viewportResize();
+function fireConfetti() {
+    const duration = 15 * 1000,
+        animationEnd = Date.now() + duration,
+        defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-function viewportResize() {
-    const currentZoom = window.visualViewport.scale;
-    const currentWidth = window.visualViewport.width;
-    const realWidth = Math.floor(currentWidth / currentZoom)
-    header.style.width = currentWidth + 'px';
-    console.log('Real width: ', realWidth, window.visualViewport)
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    confettiInterval = setInterval(function () {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(confettiInterval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        // since particles fall down, start a bit higher than random
+        confetti(
+            Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+            })
+        );
+        confetti(
+            Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+            })
+        );
+    }, 250);
 }
 
-window.addEventListener('resize', viewportResize);
+function newGame() {
+    currentBoard = getBoardByDifficultyLevel(document.getElementById('difficulty-level').value)
+    generateTiles();
+    paintTiles()
+    viewportResize();
+}
+
+addEventListeners()
+newGame()
+
+function viewportResize() {
+    const currentWidth = window.visualViewport.width;
+    header.style.width = currentWidth + 'px';
+
+    const footerHeight = 80
+    footer.style.width = currentWidth + 'px';
+    footer.style.top = (window.visualViewport.height - footerHeight) + "px"
+    footer.style.height = footerHeight + "px"
+}
+
+
+function addEventListeners() {
+    document.getElementById('button-newgame').addEventListener('click', newGame);
+    window.addEventListener('resize', viewportResize);
+}
