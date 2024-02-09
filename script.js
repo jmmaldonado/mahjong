@@ -308,4 +308,6 @@ function viewportResize() {
 function addEventListeners() {
     document.getElementById('button-newgame').addEventListener('click', newGame);
     window.addEventListener('resize', viewportResize);
+    document.getElementById('button-hint').addEventListener('click', () => { alert("hola dani!")});
+
 }
