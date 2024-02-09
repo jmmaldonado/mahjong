@@ -3,6 +3,7 @@ const gameBoard = document.getElementById('game-board');
 const header = document.getElementById('header');
 const footer = document.getElementById('footer');
 const remainingTiles = document.getElementById('remaining-tiles')
+const remainingHints = document.getElementById('remaining-hints')
 
 let movements = 0
 
@@ -17,6 +18,7 @@ let selectedTileType = null;
 let selectedTilePosition = {};
 let strictMode = true; //Tiles are only exposed if they can be moved left or right, otherwise they can be moved N/S too
 let tileCounter
+let hintsAvailable
 
 
 function totalBoardTiles() {
@@ -83,6 +85,46 @@ function generateTiles() {
         mapTiles[layer] = rowArray;
     }
 }
+
+
+function showHint() {
+    if (hintsAvailable > 0) {
+        const matchingTilePos = findMatchingTile()
+        if (matchingTilePos) {
+            const tileId = matchingTilePos.layer + "-" + matchingTilePos.row + "-" + matchingTilePos.col;
+            let matchingTile = document.getElementById(tileId);
+            matchingTile.classList.add('hint')
+            setTimeout(() => {
+                matchingTile.classList.remove('hint')
+            }, 3000)
+            hintsAvailable--;
+            remainingHints.innerText = hintsAvailable + " hints"
+        }
+    }
+}
+
+function findMatchingTile() {
+    if (!selectedTile)
+        return null;
+
+    for (let layer = mapTiles.length - 1; layer >= 0; layer--) {
+        const currentLayer = mapTiles[layer]
+        for (let row = 0; row < currentLayer.length; row++) {
+            const currentRow = currentLayer[row]
+            for (let col = 0; col < currentRow.length; col++) {
+                const probingTilePos = {
+                    layer: layer,
+                    row: row,
+                    col: col
+                }
+                if (canRemoveTiles(selectedTilePosition, probingTilePos))
+                    return probingTilePos
+            }
+        }
+    }
+    return null
+}
+
 
 function handleTileClick(tile, layerIndex, rowIndex, colIndex) {
     if (!selectedTile) {
@@ -209,6 +251,7 @@ function createTileShapeContainer(tile) {
 function paintTiles() {
     gameBoard.innerHTML = '';
     remainingTiles.innerText = tileCounter
+    remainingHints.innerText = hintsAvailable + " hints"
 
     // Iterate over base layer 
     for (let currentLayer = 0; currentLayer < currentBoard.length; currentLayer++) {
@@ -285,6 +328,7 @@ function fireConfetti() {
 }
 
 function newGame() {
+    hintsAvailable = 5
     currentBoard = getBoardByDifficultyLevel(parseInt(document.getElementById('difficulty-level').value))
     generateTiles();
     paintTiles()
@@ -300,7 +344,7 @@ function viewportResize() {
 
     const footerHeight = 80
     footer.style.width = currentWidth + 'px';
-    footer.style.top = (window.visualViewport.height - footerHeight - 5 ) + "px"
+    footer.style.top = (window.visualViewport.height - footerHeight - 5) + "px"
     footer.style.height = footerHeight + "px"
 }
 
@@ -308,5 +352,6 @@ function viewportResize() {
 function addEventListeners() {
     document.getElementById('button-newgame').addEventListener('click', newGame);
     window.addEventListener('resize', viewportResize);
+    document.getElementById('button-hint').addEventListener('click', showHint)
     document.getElementById('difficulty-level').addEventListener('change', newGame)
 }
