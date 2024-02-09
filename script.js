@@ -285,7 +285,7 @@ function fireConfetti() {
 }
 
 function newGame() {
-    currentBoard = getBoardByDifficultyLevel(document.getElementById('difficulty-level').value)
+    currentBoard = getBoardByDifficultyLevel(parseInt(document.getElementById('difficulty-level').value))
     generateTiles();
     paintTiles()
     viewportResize();
