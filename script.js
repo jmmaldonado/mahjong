@@ -306,6 +306,7 @@ function saveSettings() {
 
 function newGame() {
     saveSettings();
+    previousState = []
     currentBoard = getBoardByDifficultyLevel(settings.difficulty)
     hintsAvailable = 5
     document.getElementById('button-hint').style = "filter: saturate(1);"
