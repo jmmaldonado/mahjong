@@ -1,14 +1,3 @@
-// const tileTypes = [
-//     { type: "Circles", value: 2, color: "#FFBC42" },
-//     { type: "Circles", value: 4, color: "#D81159" },
-//     { type: "Circles", value: 6, color: "#218380" },
-//     { type: "Circles", value: 1, color: "#73D2DE" },
-//     { type: "Squares", value: 1, color: "#FFBC42" },
-//     { type: "Squares", value: 6, color: "#D81159" },
-//     { type: "Squares", value: 4, color: "#218380" },
-//     { type: "Squares", value: 2, color: "#73D2DE" },
-// ];
-
 const tileTypes = [
     { type: "circle", value: 2, color: "#FFBC42" },
     { type: "circle", value: 4, color: "#D81159" },
@@ -20,6 +9,11 @@ const tileTypes = [
     { type: "square", value: 6, color: "#218380" },
     { type: "square", value: 1, color: "#73D2DE" },
 
+    { type: "star", value: 2, color: "#FFBC42" },
+    { type: "star", value: 4, color: "#D81159" },
+    { type: "star", value: 6, color: "#218380" },
+    { type: "star", value: 1, color: "#73D2DE" },
+
     { type: "car", value: 2, color: "#FFBC42" },
     { type: "car", value: 4, color: "#D81159" },
     { type: "car", value: 6, color: "#218380" },
@@ -29,11 +23,6 @@ const tileTypes = [
     { type: "cloud", value: 4, color: "#D81159" },
     { type: "cloud", value: 6, color: "#218380" },
     { type: "cloud", value: 1, color: "#73D2DE" },
-
-    // { type: "heart", value: 2, color: "#FFBC42" },
-    // { type: "heart", value: 4, color: "#D81159" },
-    // { type: "heart", value: 6, color: "#218380" },
-    // { type: "heart", value: 1, color: "#73D2DE" },
 
     { type: "house", value: 2, color: "#FFBC42" },
     { type: "house", value: 4, color: "#D81159" },
@@ -49,11 +38,6 @@ const tileTypes = [
     { type: "rocket", value: 4, color: "#D81159" },
     { type: "rocket", value: 6, color: "#218380" },
     { type: "rocket", value: 1, color: "#73D2DE" },
-
-    { type: "star", value: 2, color: "#FFBC42" },
-    { type: "star", value: 4, color: "#D81159" },
-    { type: "star", value: 6, color: "#218380" },
-    { type: "star", value: 1, color: "#73D2DE" },
 
     { type: "umbrella", value: 2, color: "#FFBC42" },
     { type: "umbrella", value: 4, color: "#D81159" },

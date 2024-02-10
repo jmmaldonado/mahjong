@@ -53,10 +53,18 @@ function assignTilesClickHandler() {
 function generateTiles() {
     tileCounter = 0
     let tilesToDistribute = []
-    const numberOfTilesToCreate = totalBoardTiles(currentBoard)
+    const numberOfTilesToCreate = totalBoardTiles(currentBoard);
+    let maxTileTypesToUse
+    switch (settings.difficulty) {
+        case 0: maxTileTypesToUse = 12; break;
+        case 1: maxTileTypesToUse = 20; break;
+        case 2: maxTileTypesToUse = 28; break;
+        default: maxTileTypesToUse = tileTypes.length; break;
+    }
+    
     for (let i = 0; i < numberOfTilesToCreate; i += 2) {
         //For each tile to create, we create a pair to ensure the puzzle can be solved
-        let randomTileType = tileTypes[Math.floor(Math.random() * tileTypes.length)];
+        let randomTileType = tileTypes[Math.floor(Math.random() * maxTileTypesToUse)];
         tilesToDistribute.push(randomTileType)
         tilesToDistribute.push(randomTileType)
     }
