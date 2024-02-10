@@ -127,8 +127,10 @@ function showHint() {
 }
 
 function findMatchingTile() {
-    if (!selectedTile)
+    if (!selectedTile) {
+        alert('You need to select a tile first to show a hint')
         return null;
+    }
 
     for (let layer = mapTiles.length - 1; layer >= 0; layer--) {
         const currentLayer = mapTiles[layer]
