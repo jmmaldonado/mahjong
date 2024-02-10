@@ -20,6 +20,8 @@ let strictMode = true; //Tiles are only exposed if they can be moved left or rig
 let tileCounter
 let hintsAvailable
 
+let settings
+
 
 function totalBoardTiles() {
     let total = 0
@@ -337,14 +339,29 @@ function fireConfetti() {
     }, 250);
 }
 
+function loadSettings() {
+    let savedSettings = localStorage.getItem('mahjongSettings');
+    settings = savedSettings ? JSON.parse(savedSettings) : {
+        difficulty: 0 //Default difficulty
+    };
+    document.getElementById('difficulty-level').value = settings.difficulty;
+}
+
+function saveSettings() {
+    settings.difficulty = parseInt(document.getElementById('difficulty-level').value);
+    localStorage.setItem('mahjongSettings', JSON.stringify(settings));
+}
+
 function newGame() {
+    saveSettings();
+    currentBoard = getBoardByDifficultyLevel(settings.difficulty)
     hintsAvailable = 5
-    currentBoard = getBoardByDifficultyLevel(parseInt(document.getElementById('difficulty-level').value))
     generateTiles();
     paintTiles()
     viewportResize();
 }
 
+loadSettings()
 addEventListeners()
 newGame()
 
