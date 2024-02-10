@@ -212,6 +212,20 @@ function totalBoardTiles(board) {
     return total
 }
 
+function tilesRemainingIn3DMap(map) {
+    let total = 0
+    for (let layer = 0; layer < map.length; layer++) {
+        const currentLayer = map[layer]
+        for (let row = 0; row < currentLayer.length; row++) {
+            const currentRow = currentLayer[row]
+            for (let column = 0; column < currentRow.length; column++) {
+                total += currentRow[column] ? 1 : 0
+            }
+        }
+    }
+    return total
+}
+
 function getTileIdByPos(tilePos) {
     if (tilePos) {
         const tileId = tilePos.layer + "-" + tilePos.row + "-" + tilePos.col;
