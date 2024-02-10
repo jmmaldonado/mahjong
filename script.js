@@ -172,6 +172,10 @@ function canRemoveTiles(tile1pos, tile2pos) {
     const tile1 = mapTiles[tile1pos.layer][tile1pos.row][tile1pos.col];
     const tile2 = mapTiles[tile2pos.layer][tile2pos.row][tile2pos.col];
     if (tile1 && tile2) {
+        //Check if tiles are stacked (fix zoom in trick)
+        if (tile1pos.row == tile2pos.row && tile2pos.col == tile2pos.col && Math.abs(tile1pos.layer - tile2pos.layer) == 1)
+            return false;
+
         if (tile1 == tile2) {
             return isTileExposed(tile1pos, strictMode) && isTileExposed(tile2pos, strictMode);
         }
