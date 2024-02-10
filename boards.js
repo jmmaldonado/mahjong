@@ -144,7 +144,7 @@ function canRemoveTiles(tile1pos, tile2pos) {
     const tile2 = mapTiles[tile2pos.layer][tile2pos.row][tile2pos.col];
     if (tile1 && tile2) {
         //Check if tiles are stacked (fix zoom in trick)
-        if (tile1pos.row == tile2pos.row && tile2pos.col == tile2pos.col && Math.abs(tile1pos.layer - tile2pos.layer) == 1)
+        if (tile1pos.row == tile2pos.row && tile1pos.col == tile2pos.col && Math.abs(tile1pos.layer - tile2pos.layer) == 1)
             return false;
 
         if (tile1 == tile2) {
@@ -195,4 +195,15 @@ function isTileExposed(tilePos, strictMode = true) {
         return !tileLeft || !tileRight;
     else
         return !tileLeft || !tileRight || !tileNorth || !tileSouth;
+}
+
+function totalBoardTiles(board) {
+    let total = 0
+    for (let layer = 0; layer < board.length; layer++) {
+        const currentRow = board[layer]
+        for (let column = 0; column < currentRow.length; column++) {
+            total += currentRow[column]
+        }
+    }
+    return total
 }

@@ -23,22 +23,13 @@ let hintsAvailable
 let settings
 
 
-function totalBoardTiles() {
-    let total = 0
-    for (let layer = 0; layer < currentBoard.length; layer++) {
-        const currentRow = currentBoard[layer]
-        for (let column = 0; column < currentRow.length; column++) {
-            total += currentRow[column]
-        }
-    }
-    return total
-}
+
 
 
 function generateTiles() {
     tileCounter = 0
     let tilesToDistribute = []
-    const numberOfTilesToCreate = totalBoardTiles()
+    const numberOfTilesToCreate = totalBoardTiles(currentBoard)
     for (let i = 0; i < numberOfTilesToCreate; i += 2) {
         //For each tile to create, we create a pair to ensure the puzzle can be solved
         let randomTileType = tileTypes[Math.floor(Math.random() * tileTypes.length)];
