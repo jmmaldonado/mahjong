@@ -311,6 +311,7 @@ function newGame() {
     saveSettings();
     currentBoard = getBoardByDifficultyLevel(settings.difficulty)
     hintsAvailable = 5
+    document.getElementById('button-hint').style = "filter: saturate(1);"
     generateTiles();
     paintTiles()
     viewportResize();
