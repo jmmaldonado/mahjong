@@ -9,7 +9,7 @@ let movements = 0
 
 
 //  3D Array for Tiles
-const mapTiles = [];
+let mapTiles = [];
 const maxCols = 12;
 
 let currentBoard
@@ -20,11 +20,51 @@ let strictMode = true; //Tiles are only exposed if they can be moved left or rig
 let tileCounter
 let hintsAvailable
 
+let previousState = []
+
 let settings
 
+function handleUndoClick() {
+    if (previousState.length > 0) {
+        //increaseMovementCounter()
+        const savedState = previousState.pop()
+        mapTiles = JSON.parse(JSON.stringify(savedState))
 
 
+        if (selectedTile) selectedTile.classList.remove('selected')
+        selectedTile = null
+        selectedTilePosition = {}
+        paintTiles()
+        //assignTilesClickHandler()
+    }
+}
 
+function tilesRemainingInMap(map) {
+    let total = 0
+    for (let layer = 0; layer < map.length; layer++) {
+        const currentLayer = map[layer]
+        for (let row = 0; row < currentLayer.length; row++) {
+            const currentRow = currentLayer[row]
+            for (let column = 0; column < currentRow.length; column++) {
+                total += currentRow[column] ? 1 : 0
+            }
+        }
+    }
+    return total
+}
+
+function assignTilesClickHandler() {
+    let tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => {
+        const tileId = tile.id
+        const tilePos = tileId.split('-')
+        if (tilePos.length == 3) {
+            tile.addEventListener('click', () => {
+                handleTileClick(tile, tilePos[0], tilePos[1], tilePos[2])
+            });
+        }
+    });
+}
 
 function generateTiles() {
     tileCounter = 0
@@ -85,8 +125,8 @@ function showHint() {
         document.getElementById('button-hint').style = "filter: saturate(1);"
         const matchingTilePos = findMatchingTile()
         if (matchingTilePos) {
-            const tileId = matchingTilePos.layer + "-" + matchingTilePos.row + "-" + matchingTilePos.col;
-            let matchingTile = document.getElementById(tileId);
+            //const tileId = matchingTilePos.layer + "-" + matchingTilePos.row + "-" + matchingTilePos.col;
+            let matchingTile = document.getElementById(getTileIdByPos(matchingTilePos));
             matchingTile.classList.add('hint')
             setTimeout(() => {
                 matchingTile.classList.remove('hint')
@@ -146,6 +186,8 @@ function handleTileClick(tile, layerIndex, rowIndex, colIndex) {
     };
 
     if (canRemoveTiles(selectedTilePosition, secondTilePosition)) {
+        //Deep copy current state to previousState array
+        previousState.push(JSON.parse(JSON.stringify(mapTiles)));
         removeTiles(selectedTilePosition, secondTilePosition);
         paintTiles();
     } else {
@@ -310,4 +352,5 @@ function addEventListeners() {
     window.addEventListener('resize', viewportResize);
     document.getElementById('button-hint').addEventListener('click', showHint)
     document.getElementById('difficulty-level').addEventListener('change', newGame)
+    document.getElementById('button-undo').addEventListener('click', handleUndoClick)
 }

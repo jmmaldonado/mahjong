@@ -147,7 +147,7 @@ function canRemoveTiles(tile1pos, tile2pos) {
         if (tile1pos.row == tile2pos.row && tile1pos.col == tile2pos.col && Math.abs(tile1pos.layer - tile2pos.layer) == 1)
             return false;
 
-        if (tile1 == tile2) {
+        if (isSameTileType(tile1, tile2)) {
             return isTileExposed(tile1pos, strictMode) && isTileExposed(tile2pos, strictMode);
         }
     }
@@ -163,6 +163,10 @@ function isSameTile(tile1pos, tile2pos) {
         }
     }
     return false
+}
+
+function isSameTileType(tile1, tile2) {
+    return tile1.type == tile2.type && tile1.value == tile2.value && tile1.color == tile2.color
 }
 
 function isTileExposed(tilePos, strictMode = true) {
@@ -206,4 +210,13 @@ function totalBoardTiles(board) {
         }
     }
     return total
+}
+
+function getTileIdByPos(tilePos) {
+    if (tilePos) {
+        const tileId = tilePos.layer + "-" + tilePos.row + "-" + tilePos.col;
+        return tileId
+    }
+
+    return null
 }
