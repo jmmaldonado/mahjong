@@ -1,12 +1,64 @@
+// const tileTypes = [
+//     { type: "Circles", value: 2, color: "#FFBC42" },
+//     { type: "Circles", value: 4, color: "#D81159" },
+//     { type: "Circles", value: 6, color: "#218380" },
+//     { type: "Circles", value: 1, color: "#73D2DE" },
+//     { type: "Squares", value: 1, color: "#FFBC42" },
+//     { type: "Squares", value: 6, color: "#D81159" },
+//     { type: "Squares", value: 4, color: "#218380" },
+//     { type: "Squares", value: 2, color: "#73D2DE" },
+// ];
+
 const tileTypes = [
-    { type: "Circles", value: 2, color: "#FFBC42" },
-    { type: "Circles", value: 4, color: "#D81159" },
-    { type: "Circles", value: 6, color: "#218380" },
-    { type: "Circles", value: 1, color: "#73D2DE" },
-    { type: "Squares", value: 1, color: "#FFBC42" },
-    { type: "Squares", value: 6, color: "#D81159" },
-    { type: "Squares", value: 4, color: "#218380" },
-    { type: "Squares", value: 2, color: "#73D2DE" },
+    { type: "circle", value: 2, color: "#FFBC42" },
+    { type: "circle", value: 4, color: "#D81159" },
+    { type: "circle", value: 6, color: "#218380" },
+    { type: "circle", value: 1, color: "#73D2DE" },
+
+    { type: "square", value: 2, color: "#FFBC42" },
+    { type: "square", value: 4, color: "#D81159" },
+    { type: "square", value: 6, color: "#218380" },
+    { type: "square", value: 1, color: "#73D2DE" },
+
+    { type: "car", value: 2, color: "#FFBC42" },
+    { type: "car", value: 4, color: "#D81159" },
+    { type: "car", value: 6, color: "#218380" },
+    { type: "car", value: 1, color: "#73D2DE" },
+
+    { type: "cloud", value: 2, color: "#FFBC42" },
+    { type: "cloud", value: 4, color: "#D81159" },
+    { type: "cloud", value: 6, color: "#218380" },
+    { type: "cloud", value: 1, color: "#73D2DE" },
+
+    // { type: "heart", value: 2, color: "#FFBC42" },
+    // { type: "heart", value: 4, color: "#D81159" },
+    // { type: "heart", value: 6, color: "#218380" },
+    // { type: "heart", value: 1, color: "#73D2DE" },
+
+    { type: "house", value: 2, color: "#FFBC42" },
+    { type: "house", value: 4, color: "#D81159" },
+    { type: "house", value: 6, color: "#218380" },
+    { type: "house", value: 1, color: "#73D2DE" },
+
+    { type: "padlock", value: 2, color: "#FFBC42" },
+    { type: "padlock", value: 4, color: "#D81159" },
+    { type: "padlock", value: 6, color: "#218380" },
+    { type: "padlock", value: 1, color: "#73D2DE" },
+
+    { type: "rocket", value: 2, color: "#FFBC42" },
+    { type: "rocket", value: 4, color: "#D81159" },
+    { type: "rocket", value: 6, color: "#218380" },
+    { type: "rocket", value: 1, color: "#73D2DE" },
+
+    { type: "star", value: 2, color: "#FFBC42" },
+    { type: "star", value: 4, color: "#D81159" },
+    { type: "star", value: 6, color: "#218380" },
+    { type: "star", value: 1, color: "#73D2DE" },
+
+    { type: "umbrella", value: 2, color: "#FFBC42" },
+    { type: "umbrella", value: 4, color: "#D81159" },
+    { type: "umbrella", value: 6, color: "#218380" },
+    { type: "umbrella", value: 1, color: "#73D2DE" },
 ];
 
 // 2D Array for Layer Dimensions

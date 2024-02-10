@@ -205,12 +205,7 @@ function createTileShapeContainer(tile) {
     // Create shapes 
     for (let i = 0; i < tile.value; i++) {
         let shapeDiv = document.createElement('div');
-        if (tile.type === "Circles") {
-            shapeDiv.classList.add('circle');
-        } else {
-            shapeDiv.classList.add('square');
-        }
-
+        shapeDiv.classList.add(tile.type);
         shapeDiv.style.backgroundColor = tile.color;
         shapeContainer.appendChild(shapeDiv);
     }
