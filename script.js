@@ -167,68 +167,6 @@ function handleTileClick(tile, layerIndex, rowIndex, colIndex) {
 }
 
 
-function canRemoveTiles(tile1pos, tile2pos) {
-    if (isSameTile(tile1pos, tile2pos))
-        return false;
-
-    const tile1 = mapTiles[tile1pos.layer][tile1pos.row][tile1pos.col];
-    const tile2 = mapTiles[tile2pos.layer][tile2pos.row][tile2pos.col];
-    if (tile1 && tile2) {
-        //Check if tiles are stacked (fix zoom in trick)
-        if (tile1pos.row == tile2pos.row && tile2pos.col == tile2pos.col && Math.abs(tile1pos.layer - tile2pos.layer) == 1)
-            return false;
-
-        if (tile1 == tile2) {
-            return isTileExposed(tile1pos, strictMode) && isTileExposed(tile2pos, strictMode);
-        }
-    }
-    return false;
-}
-
-function isSameTile(tile1pos, tile2pos) {
-    if (tile1pos.layer == tile2pos.layer) {
-        if (tile1pos.row == tile2pos.row) {
-            if (tile1pos.col == tile2pos.col) {
-                return true
-            }
-        }
-    }
-    return false
-}
-
-function isTileExposed(tilePos, strictMode = true) {
-
-    let tileLeft
-    if (tilePos.col > 0)
-        tileLeft = mapTiles[tilePos.layer][tilePos.row][tilePos.col - 1]
-    else
-        tileLeft = null
-
-    let tileRight
-    if (tilePos.col < maxCols - 1)
-        tileRight = mapTiles[tilePos.layer][tilePos.row][tilePos.col + 1]
-    else
-        tileRight = null
-
-    let tileNorth
-    if (tilePos.row > 0)
-        tileNorth = mapTiles[tilePos.layer][tilePos.row - 1][tilePos.col]
-    else
-        tileNorth = null
-
-    let tileSouth
-    if (tilePos.row < mapTiles[tilePos.layer].length - 1)
-        tileSouth = mapTiles[tilePos.layer][tilePos.row + 1][tilePos.col]
-    else
-        tileSouth = null
-
-    if (strictMode)
-        return !tileLeft || !tileRight;
-    else
-        return !tileLeft || !tileRight || !tileNorth || !tileSouth;
-}
-
-
 function removeTiles(tile1pos, tile2pos) {
     mapTiles[tile1pos.layer][tile1pos.row][tile1pos.col] = null
     mapTiles[tile2pos.layer][tile2pos.row][tile2pos.col] = null
