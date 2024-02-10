@@ -213,8 +213,7 @@ function createTileShapeContainer(tile) {
     // Create shapes 
     for (let i = 0; i < tile.value; i++) {
         let shapeDiv = document.createElement('div');
-        shapeDiv.classList.add(tile.type);
-        shapeDiv.style.backgroundColor = tile.color;
+        shapeDiv.innerHTML = getIcon(tile.type, tile.color);
         shapeContainer.appendChild(shapeDiv);
     }
     return shapeContainer;
