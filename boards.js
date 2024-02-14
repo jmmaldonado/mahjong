@@ -1,48 +1,97 @@
+//Consistent color per number of shapes
+// const tileTypes = [
+//     { type: "circle", value: 2, color: "#FFBC42" },
+//     { type: "circle", value: 4, color: "#D81159" },
+//     { type: "circle", value: 6, color: "#218380" },
+//     { type: "circle", value: 1, color: "#73D2DE" },
+
+//     { type: "square", value: 2, color: "#FFBC42" },
+//     { type: "square", value: 4, color: "#D81159" },
+//     { type: "square", value: 6, color: "#218380" },
+//     { type: "square", value: 1, color: "#73D2DE" },
+
+//     { type: "star", value: 2, color: "#FFBC42" },
+//     { type: "star", value: 4, color: "#D81159" },
+//     { type: "star", value: 6, color: "#218380" },
+//     { type: "star", value: 1, color: "#73D2DE" },
+
+//     { type: "car", value: 2, color: "#FFBC42" },
+//     { type: "car", value: 4, color: "#D81159" },
+//     { type: "car", value: 6, color: "#218380" },
+//     { type: "car", value: 1, color: "#73D2DE" },
+
+//     { type: "cloud", value: 2, color: "#FFBC42" },
+//     { type: "cloud", value: 4, color: "#D81159" },
+//     { type: "cloud", value: 6, color: "#218380" },
+//     { type: "cloud", value: 1, color: "#73D2DE" },
+
+//     { type: "house", value: 2, color: "#FFBC42" },
+//     { type: "house", value: 4, color: "#D81159" },
+//     { type: "house", value: 6, color: "#218380" },
+//     { type: "house", value: 1, color: "#73D2DE" },
+
+//     { type: "padlock", value: 2, color: "#FFBC42" },
+//     { type: "padlock", value: 4, color: "#D81159" },
+//     { type: "padlock", value: 6, color: "#218380" },
+//     { type: "padlock", value: 1, color: "#73D2DE" },
+
+//     { type: "rocket", value: 2, color: "#FFBC42" },
+//     { type: "rocket", value: 4, color: "#D81159" },
+//     { type: "rocket", value: 6, color: "#218380" },
+//     { type: "rocket", value: 1, color: "#73D2DE" },
+
+//     { type: "umbrella", value: 2, color: "#FFBC42" },
+//     { type: "umbrella", value: 4, color: "#D81159" },
+//     { type: "umbrella", value: 6, color: "#218380" },
+//     { type: "umbrella", value: 1, color: "#73D2DE" },
+// ];
+
+//Consistent color per type of shapes
 const tileTypes = [
-    { type: "circle", value: 2, color: "#FFBC42" },
-    { type: "circle", value: 4, color: "#D81159" },
-    { type: "circle", value: 6, color: "#218380" },
-    { type: "circle", value: 1, color: "#73D2DE" },
+    { type: "circle", value: 2, color: "#f94144" },
+    { type: "circle", value: 4, color: "#f94144" },
+    { type: "circle", value: 6, color: "#f94144" },
+    { type: "circle", value: 1, color: "#f94144" },
 
-    { type: "square", value: 2, color: "#FFBC42" },
-    { type: "square", value: 4, color: "#D81159" },
-    { type: "square", value: 6, color: "#218380" },
-    { type: "square", value: 1, color: "#73D2DE" },
+    { type: "square", value: 2, color: "#9e2a2b" },
+    { type: "square", value: 4, color: "#9e2a2b" },
+    { type: "square", value: 6, color: "#9e2a2b" },
+    { type: "square", value: 1, color: "#9e2a2b" },
 
-    { type: "star", value: 2, color: "#FFBC42" },
-    { type: "star", value: 4, color: "#D81159" },
-    { type: "star", value: 6, color: "#218380" },
-    { type: "star", value: 1, color: "#73D2DE" },
+    { type: "star", value: 2, color: "#f8961e" },
+    { type: "star", value: 4, color: "#f8961e" },
+    { type: "star", value: 6, color: "#f8961e" },
+    { type: "star", value: 1, color: "#f8961e" },
 
-    { type: "car", value: 2, color: "#FFBC42" },
-    { type: "car", value: 4, color: "#D81159" },
-    { type: "car", value: 6, color: "#218380" },
-    { type: "car", value: 1, color: "#73D2DE" },
+    { type: "car", value: 2, color: "#90be6d" },
+    { type: "car", value: 4, color: "#90be6d" },
+    { type: "car", value: 6, color: "#90be6d" },
+    { type: "car", value: 1, color: "#90be6d" },
 
-    { type: "cloud", value: 2, color: "#FFBC42" },
-    { type: "cloud", value: 4, color: "#D81159" },
-    { type: "cloud", value: 6, color: "#218380" },
-    { type: "cloud", value: 1, color: "#73D2DE" },
+    { type: "cloud", value: 2, color: "#43aa8b" },
+    { type: "cloud", value: 4, color: "#43aa8b" },
+    { type: "cloud", value: 6, color: "#43aa8b" },
+    { type: "cloud", value: 1, color: "#43aa8b" },
 
-    { type: "house", value: 2, color: "#FFBC42" },
-    { type: "house", value: 4, color: "#D81159" },
-    { type: "house", value: 6, color: "#218380" },
-    { type: "house", value: 1, color: "#73D2DE" },
+    { type: "house", value: 2, color: "#4d908e" },
+    { type: "house", value: 4, color: "#4d908e" },
+    { type: "house", value: 6, color: "#4d908e" },
+    { type: "house", value: 1, color: "#4d908e" },
 
-    { type: "padlock", value: 2, color: "#FFBC42" },
-    { type: "padlock", value: 4, color: "#D81159" },
-    { type: "padlock", value: 6, color: "#218380" },
-    { type: "padlock", value: 1, color: "#73D2DE" },
+    { type: "padlock", value: 2, color: "#577590" },
+    { type: "padlock", value: 4, color: "#577590" },
+    { type: "padlock", value: 6, color: "#577590" },
+    { type: "padlock", value: 1, color: "#577590" },
 
-    { type: "rocket", value: 2, color: "#FFBC42" },
-    { type: "rocket", value: 4, color: "#D81159" },
-    { type: "rocket", value: 6, color: "#218380" },
-    { type: "rocket", value: 1, color: "#73D2DE" },
+    { type: "rocket", value: 2, color: "#277da1" },
+    { type: "rocket", value: 4, color: "#277da1" },
+    { type: "rocket", value: 6, color: "#277da1" },
+    { type: "rocket", value: 1, color: "#277da1" },
 
-    { type: "umbrella", value: 2, color: "#FFBC42" },
-    { type: "umbrella", value: 4, color: "#D81159" },
-    { type: "umbrella", value: 6, color: "#218380" },
-    { type: "umbrella", value: 1, color: "#73D2DE" },
+    { type: "umbrella", value: 2, color: "#9d4edd" },
+    { type: "umbrella", value: 4, color: "#9d4edd" },
+    { type: "umbrella", value: 6, color: "#9d4edd" },
+    { type: "umbrella", value: 1, color: "#9d4edd" },
 ];
 
 // 2D Array for Layer Dimensions
